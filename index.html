@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS3 TRANSITION </title>
+  <style>
+    
+    button {
+      padding: 10px 20px;
+      background-color: brown;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 10s ease, background-color 10s ease;
+    }
+
+    
+    button:hover {
+      background-color: black;
+      transform: scale(1.1);
+    }
+
+    
+    .dark-theme {
+      background-color: grey;
+      color: white;
+    }
+
+
+    .loader {
+      border: 16px solid beige;
+      border-top: 16px solid blueviolet;
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      animation: spin 2s linear infinite;
+    }
+
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(180deg); }
+    }
+  </style>
+</head>
+<body>
+  <button id="theme-toggle">Toggle Dark Mode</button>
+  <div class="loader"></div>
+
+  <script>
+    
+    function saveThemePreference(theme) {
+      localStorage.setItem('theme', theme);
+    }
+
+    
+    function loadThemePreference() {
+      return localStorage.getItem('theme') || 'light'; 
+    }
+
+    
+    function applyTheme() {
+      const theme = loadThemePreference();
+      document.body.className = theme;
+    }
+
+    
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      const currentTheme = document.body.className;
+      const newTheme = currentTheme === 'dark-theme' ? 'light' : 'dark-theme';
+      saveThemePreference(newTheme);
+      applyTheme();
+    });
+
+    
+    window.onload = applyTheme;
+  </script>
+</body>
+</html>
